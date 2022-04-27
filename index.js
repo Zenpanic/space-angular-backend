@@ -28,13 +28,11 @@ app.get('/', function(req, res, next) {
   res.status(200).send('<h1>Coucou les petits loups !</h1>');
 });
 
-app.post('/asteroid', async (req, res) => {
+app.get('/asteroid', async (req, res) => {
 
-  console.log('ok');
+  const { startDate } = req.query;
 
-  const startDate = req.body.startDate;
-
-  if (!req?.body?.startDate) return res.status(400).json([]);
+  if (!startDate) return res.status(400).json([]);
 
   const ask = await fetch(`https://api.nasa.gov/neo/rest/v1/feed?start_date=${startDate}&end_date=${startDate}&api_key=${NASA_API_KEY}`, {
     method: 'GET',
