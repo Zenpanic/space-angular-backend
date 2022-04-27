@@ -5,6 +5,7 @@ const cors = require('cors');
 
 const db = new Database('space-db.db');
 const NASA_API_KEY = process.env.NASA_API_KEY;
+const FRONTEND_URL = process.env.FRONTEND_URL;
 
 const app = express();
 const router = express.Router();
