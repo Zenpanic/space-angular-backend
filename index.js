@@ -23,11 +23,6 @@ const corsOptions = {
 app.use(express.json());
 app.use(cors(corsOptions));
 
-/* GET home page. */
-app.get('/', function(req, res, next) {
-  res.status(200).send('<h1>Coucou les petits loups !</h1>');
-});
-
 app.get('/asteroid', async (req, res) => {
 
   const { startDate } = req.query;
