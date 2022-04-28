@@ -43,22 +43,24 @@ app.get('/asteroid', async (req, res) => {
 
   const asteroidListRaw = [... data.near_earth_objects[startDate]];
 
+  if (asteroidListRaw == null || asteroidListRaw.length <= 0) return res.status(400).json([]);
+
   let asteroidList = [];
 
   asteroidListRaw.map(asteroid => {
     asteroidList.push({
       id: String(asteroid.id),
       name: asteroid.name,
-      diamater_min: Number(asteroid.estimated_diameter.meters.estimated_diameter_min),
-      diameter_max: Number(asteroid.estimated_diameter.meters.estimated_diameter_max),
+      diameter_min: Math.round(Number(asteroid.estimated_diameter.meters.estimated_diameter_min)),
+      diameter_max: Math.round(Number(asteroid.estimated_diameter.meters.estimated_diameter_max)),
       is_dangerous: asteroid.is_potentially_hazardous_asteroid,
-      relative_velocity: Number(asteroid.close_approach_data[0].relative_velocity.kilometers_per_hour),
-      miss_distance: Number(asteroid.close_approach_data[0].miss_distance.kilometers),
+      relative_velocity: Math.round(Number(asteroid.close_approach_data[0].relative_velocity.kilometers_per_hour)),
+      miss_distance: Math.round(Number(asteroid.close_approach_data[0].miss_distance.kilometers)),
       link: asteroid.links.self
     })
   });
 
-  return res.json(asteroidList);
+  return res.status(200).json(asteroidList);
 });
 
 /* const createUsers = db.prepare('CREATE TABLE utilisateurs (id int, username varchar(255), email varchar(255))');
