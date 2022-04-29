@@ -43,15 +43,16 @@ app.get('/asteroid', async (req, res) => {
   let asteroidList = [];
 
   asteroidListRaw.map(asteroid => {
+
     asteroidList.push({
       id: String(asteroid.id),
       name: asteroid.name,
       diameter_min: Math.round(Number(asteroid.estimated_diameter.meters.estimated_diameter_min)),
       diameter_max: Math.round(Number(asteroid.estimated_diameter.meters.estimated_diameter_max)),
-      is_dangerous: asteroid.is_potentially_hazardous_asteroid,
       relative_velocity: Math.round(Number(asteroid.close_approach_data[0].relative_velocity.kilometers_per_hour)),
       miss_distance: Math.round(Number(asteroid.close_approach_data[0].miss_distance.kilometers)),
-      link: asteroid.links.self
+      is_dangerous: asteroid.is_potentially_hazardous_asteroid,
+      link: asteroid.nasa_jpl_url,
     })
   });
 
