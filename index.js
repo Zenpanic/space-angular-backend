@@ -36,6 +36,8 @@ app.get('/asteroid', async (req, res) => {
 
   const data = await ask.json();
 
+  if (!data?.near_earth_objects[startDate]) return res.status(400).json([]);
+
   const asteroidListRaw = [... data.near_earth_objects[startDate]];
 
   if (asteroidListRaw == null || asteroidListRaw.length <= 0) return res.status(400).json([]);
